@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {Actions} from 'react-native-router-flux'
 
 import {
@@ -118,9 +119,7 @@ export default class Posts extends React.Component {
           </List>
           </Content>
           <Fab onPress={()=>{
-            Actions.addpost({
-              text: 'theweek'
-            })
+            Actions.addpost()
           }}
             style={{ backgroundColor: '#5067FF'}}
             position="bottomRight">
