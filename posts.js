@@ -17,7 +17,9 @@ import {
     Text,
     List,
     ListItem,
-    Fab
+    Fab,
+    Card,
+    CardItem
 } from 'native-base';
 
 
@@ -38,6 +40,27 @@ export default class Posts extends React.Component {
     //checking state for if font is loaded or not.
     state = {
         fontLoaded: false,
+        posts: [{
+          author: 'John Doe',
+          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
+          votes: 100
+        },{
+          author: 'John Doe',
+          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
+          votes: 100
+        },{
+          author: 'John Doe',
+          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
+          votes: 100
+        },{
+          author: 'John Doe',
+          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
+          votes: 100
+        },{
+          author: 'John Doe',
+          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
+          votes: 100
+        }]
     };
 
 
@@ -64,59 +87,47 @@ export default class Posts extends React.Component {
               </Button>
             </Left>
             <Body>
-              <Title>Header</Title>
+              <Title>Mareddit</Title>
             </Body>
             <Right />
           </Header>
           <Content>
-          <List>
-            <ListItem>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note>Its time to build a difference . .</Text>
-              </Body>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropup"></Icon>
-                <Text note>1000</Text>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropdown"></Icon>
-            </ListItem>
-            <ListItem>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note>Its time to build a difference . .</Text>
-              </Body>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropup"></Icon>
-                <Text note>1000</Text>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropdown"></Icon>
-            </ListItem>
-            <ListItem>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note>Its time to build a difference . .</Text>
-              </Body>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropup"></Icon>
-                <Text note>1000</Text>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropdown"></Icon>
-            </ListItem>
-            <ListItem>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note>Its time to build a difference . .</Text>
-              </Body>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropup"></Icon>
-                <Text note>1000</Text>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropdown"></Icon>
-            </ListItem>
-            <ListItem>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note>Its time to build a difference . .</Text>
-              </Body>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropup"></Icon>
-                <Text note>1000</Text>
-                <Icon style={{margin:10, fontSize:30}} name="md-arrow-dropdown"></Icon>
-            </ListItem>
 
-          </List>
+          <List dataArray={this.state.posts} renderRow={(item)=>{
+            return (
+
+
+          <Card>
+            <CardItem>
+              <Left>
+                <Body>
+                  <Text>{item.author}</Text>
+                  <Text note>{item.content}}</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent>
+                  <Icon name="add" />
+                </Button>
+
+                <Button transparent>
+                  <Icon name="md-remove" />
+                </Button>
+              </Left>
+              <Right>
+                <Text>{item.votes} vote</Text>
+              </Right>
+            </CardItem>
+          </Card>
+
+
+              )
+          }}/>
+
+
+
           </Content>
           <Fab onPress={()=>{
             Actions.addpost()
