@@ -42,7 +42,6 @@ import {
 export default class Posts extends React.Component {
     //checking state for if font is loaded or not.
     state = {
-        fontLoaded: false,
         posts: [{
           author: 'John Doe',
           content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
@@ -67,16 +66,6 @@ export default class Posts extends React.Component {
     };
 
 
-    async componentDidMount() {
-        await Font.loadAsync({
-            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-        });
-
-        //Setting the state to true when font is loaded.
-        this.setState({
-            fontLoaded: true
-        });
-    }
 
     closeDrawer = () => {
       this.drawer._root.close()
@@ -88,7 +77,6 @@ export default class Posts extends React.Component {
 
     render() {
 
-      if (this.state.fontLoaded) {
         return (
         <Drawer
             ref={(ref) => { this.drawer = ref; }}
@@ -159,12 +147,7 @@ export default class Posts extends React.Component {
           </Drawer>
 
         )
-      } else {
-        return (
-          <Container>
-          </Container>
-        )
-      } 
+      
 
     }
 

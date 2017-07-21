@@ -56,6 +56,10 @@ export default class AddPost extends React.Component {
         });
     }
 
+    goBack(){
+      Actions.pop()
+    }
+
     render() {
 
       if (this.state.fontLoaded) {
@@ -63,12 +67,12 @@ export default class AddPost extends React.Component {
         <Container style={{paddingTop: Expo.Constants.statusBarHeight}}>
           <Header>
             <Left>
-              <Button transparent>
-                <Icon name='menu' />
+              <Button onPress={this.goBack.bind(this)} transparent>
+                <Icon name='arrow-back' />
               </Button>
             </Left>
             <Body>
-              <Title>Header</Title>
+              <Title>New Post</Title>
             </Body>
             <Right />
           </Header>
@@ -77,7 +81,7 @@ export default class AddPost extends React.Component {
           </Content>
           <Footer>
           <FooterTab>
-            <Button full>
+            <Button onPress={this.goBack.bind(this)} full>
               <Text>Submit</Text>
             </Button>
           </FooterTab>
