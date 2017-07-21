@@ -10,8 +10,9 @@ export default class App extends React.Component {
       return (
       <Router>
         <Scene key="root">
-          <Scene key="posts" initial={true} component={Posts} hideNavBar={true}/>
+          <Scene key="posts"  initial={true} component={Posts} hideNavBar={true}/>
           <Scene key="addpost" component={AddPost} hideNavBar={true}/>
+
         </Scene>
       </Router>
       )

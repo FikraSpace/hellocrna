@@ -1,6 +1,8 @@
 import React from 'react'
 
 import {Actions} from 'react-native-router-flux'
+import SideBar from './sidebar'
+
 
 import {
     Container,
@@ -19,7 +21,8 @@ import {
     ListItem,
     Fab,
     Card,
-    CardItem
+    CardItem,
+    Drawer
 } from 'native-base';
 
 
@@ -75,14 +78,27 @@ export default class Posts extends React.Component {
         });
     }
 
+    closeDrawer = () => {
+      this.drawer._root.close()
+    };
+    openDrawer = () => {
+      this.drawer._root.open()
+    };
+
+
     render() {
 
       if (this.state.fontLoaded) {
         return (
+        <Drawer
+            ref={(ref) => { this.drawer = ref; }}
+            content={<SideBar navigator={this.navigator}  />}
+            onClose={() => this.closeDrawer()} >
         <Container style={{paddingTop: Expo.Constants.statusBarHeight}}>
+          
           <Header>
             <Left>
-              <Button transparent>
+              <Button onPress={this.openDrawer.bind(this)} transparent>
                 <Icon name='menu' />
               </Button>
             </Left>
@@ -136,7 +152,11 @@ export default class Posts extends React.Component {
             position="bottomRight">
             <Icon name="add" />
           </Fab>
+
+
+
         </Container>
+          </Drawer>
 
         )
       } else {
