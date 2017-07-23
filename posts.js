@@ -3,6 +3,7 @@ import React from 'react'
 import {Actions} from 'react-native-router-flux'
 import SideBar from './sidebar'
 
+import {AsyncStorage} from 'react-native'
 
 import {
     Container,
@@ -42,28 +43,31 @@ import {
 export default class Posts extends React.Component {
     //checking state for if font is loaded or not.
     state = {
-        posts: [{
-          author: 'John Doe',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
-          votes: 100
-        },{
-          author: 'John Doe',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
-          votes: 100
-        },{
-          author: 'John Doe',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
-          votes: 100
-        },{
-          author: 'John Doe',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
-          votes: 100
-        },{
-          author: 'John Doe',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis magnam dolore nesciunt, atque, porro distinctio natus, dignissimos incidunt fuga possimus et quia voluptates dicta tempore voluptatum tenetur odit. Expedita, blanditiis.',
-          votes: 100
-        }]
+        posts: []
     };
+
+
+    async componentWillMount() {
+      // best partice
+      let ths = this;
+
+      let token = await AsyncStorage.getItem('token')
+      if (!token) {
+        Actions.login()
+      } else {
+        fetch('https://mareddit.herokuapp.com/api/articles', {
+          headers:{
+            token: token
+          }
+        }).then((response)=>{
+          return response.json()
+        }).then((response)=>{
+          ths.setState({
+            posts: response
+          })
+        })
+      }
+    }
 
 
 
