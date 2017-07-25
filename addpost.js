@@ -34,7 +34,8 @@ import {
     StyleSheet,
     View,
     Platform,
-    TextInput
+    TextInput,
+    AsyncStorage
 } from 'react-native'; //Most of the react native components can be found in NativeBase
 
 
@@ -42,6 +43,7 @@ export default class AddPost extends React.Component {
     //checking state for if font is loaded or not.
     state = {
         fontLoaded: false,
+        content: ''
     };
 
 
@@ -58,6 +60,31 @@ export default class AddPost extends React.Component {
 
     goBack(){
       Actions.pop()
+    }
+
+    async sendNewPost(){
+
+      let token = await AsyncStorage.getItem('token')
+
+      fetch('https://mareddit.herokuapp.com/api/articles',{
+        method: 'POST',
+        headers: JSON.stringify({
+          token: 
+        },
+        body:{
+          content: this.state.content,
+          title:'',
+        })
+      })
+
+      Actions.pop()
+    }
+
+
+    this.setContent(val){
+      this.setState({
+        content: val
+      })
     }
 
     render() {
@@ -77,12 +104,12 @@ export default class AddPost extends React.Component {
             <Right />
           </Header>
           <Content>
-            <Textarea style={{alignSelf:'stretch'}} placeholder="Whats on your mind?" />
+            <Textarea onChangeText={this.setContent.bind(this)} value={this.state.content} style={{alignSelf:'stretch'}} placeholder="Whats on your mind?" />
           </Content>
           <Footer>
           <FooterTab>
             <Button onPress={this.goBack.bind(this)} full>
-              <Text>Submit</Text>
+              <Text onPress={this.sendNewPost.bind(this)}>Submit</Text>
             </Button>
           </FooterTab>
         </Footer>

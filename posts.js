@@ -42,6 +42,14 @@ import {
 
 export default class Posts extends React.Component {
     //checking state for if font is loaded or not.
+    constructor(props) {
+      super(props);
+      
+
+
+
+    }
+
     state = {
         posts: []
     };
@@ -71,6 +79,8 @@ export default class Posts extends React.Component {
 
 
 
+
+
     closeDrawer = () => {
       this.drawer._root.close()
     };
@@ -78,8 +88,25 @@ export default class Posts extends React.Component {
       this.drawer._root.open()
     };
 
+    async upvote(id, this){
+
+      let token = await AsyncStorage.getItem('token')
+
+      fetch(`https://mareddit.herokuapp.com/api/artciles/{$id}`, {
+        method: 'PUT',
+        headers: JSON.stringify({
+          token: token
+        },
+        body:{
+          vote: +1
+        })
+      })
+    }
+
 
     render() {
+
+
 
         return (
         <Drawer
@@ -116,7 +143,7 @@ export default class Posts extends React.Component {
             </CardItem>
             <CardItem>
               <Left>
-                <Button transparent>
+                <Button onPress={this.upvote.bind(this, item.id)} transparent>
                   <Icon name="add" />
                 </Button>
 
